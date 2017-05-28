@@ -191,6 +191,57 @@ var WOW *SoundCollection = &SoundCollection{
 	},
 }
 
+var GATO *SoundCollection = &SoundCollection{
+	Prefix: "gato",
+	Commands: []string{
+		"!gato",
+		"!bizt1",
+	},
+	Sounds: []*Sound{
+		createSound("1", 50, 250),
+		createSound("2", 50, 250),
+		createSound("3", 50, 250),
+	},
+}
+
+var ESPANHOL *SoundCollection = &SoundCollection{
+	Prefix: "espa",
+	Commands: []string{
+		"!espanhol",
+	},
+	Sounds: []*Sound{
+		createSound("nhol", 50, 250),
+	},
+}
+
+var AZIA *SoundCollection = &SoundCollection{
+	Prefix: "tanta",
+	Commands: []string{
+		"!renie",
+	},
+	Sounds: []*Sound{
+		createSound("azia", 50, 250),
+	},
+}
+var FIGURAS *SoundCollection = &SoundCollection{
+	Prefix: "melhores",
+	Commands: []string{
+		"!figuras",
+	},
+	Sounds: []*Sound{
+		createSound("figuras", 50, 250),
+	},
+}
+var OHJORGE *SoundCollection = &SoundCollection{
+	Prefix: "oh",
+	Commands: []string{
+		"!jorge",
+	},
+	Sounds: []*Sound{
+		createSound("jorge", 50, 250),
+	},
+}
+
 var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	AIRHORN,
 	KHALED,
@@ -199,6 +250,11 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	COW,
 	BIRTHDAY,
 	WOW,
+	GATO,
+	ESPANHOL,
+	AZIA,
+	FIGURAS,
+	OHJORGE,
 }
 
 // Create a Sound struct
@@ -461,7 +517,7 @@ func onReady(s *discordgo.Session, event *discordgo.Ready) {
 }
 
 func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
-	if event.Guild.Unavailable != nil {
+	if event.Guild.Unavailable {
 		return
 	}
 
