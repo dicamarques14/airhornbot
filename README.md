@@ -9,23 +9,14 @@ Airhorn Bot has two components, a bot client that handles the playing of loyal a
 
 **First install the bot:**
 ```
-go get github.com/hammerandchisel/airhornbot/cmd/bot
-go install github.com/hammerandchisel/airhornbot/cmd/bot
+go get github.com/dicamarques14/airhornbot/cmd/bot
+go install github.com/dicamarques14/airhornbot/cmd/bot
 ```
  **Then run the following command:**
 
+``` 
+.\bot.exe -t "MY_BOT_ACCOUNT_TOKEN" -o OWNER_ID
 ```
-bot -r "localhost:6379" -t "MY_BOT_ACCOUNT_TOKEN" -o OWNER_ID
-```
-
-### Running the Web Server
-First install the webserver: `go install github.com/hammerandchisel/airhornbot`, then run `make static`, finally run:
-
-```
-./airhornweb -r "localhost:6379" -i MY_APPLICATION_ID -s 'MY_APPLICATION_SECRET"
-```
-
-Note, the webserver requires a redis instance to track statistics
 
 ### Add your own sounds
 Download [DCA-RS](https://github.com/nstafie/dca-rs/releases) (don't use v0.1 as v0.2 never worked for me. I also didnt get it to work in windows)
