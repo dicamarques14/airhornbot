@@ -187,7 +187,7 @@ var WOW *SoundCollection = &SoundCollection{
 		"!wtc",
 	},
 	Sounds: []*Sound{
-		createSound("thatscool", 50, 250),
+		createSound("thatscool", 50, 1000),
 	},
 }
 
@@ -198,9 +198,9 @@ var GATO *SoundCollection = &SoundCollection{
 		"!bizt1",
 	},
 	Sounds: []*Sound{
-		createSound("1", 50, 250),
-		createSound("2", 50, 250),
-		createSound("3", 50, 250),
+		createSound("1", 50, 1000),
+		createSound("2", 50, 1000),
+		createSound("3", 50, 1000),
 	},
 }
 
@@ -210,7 +210,7 @@ var ESPANHOL *SoundCollection = &SoundCollection{
 		"!espanhol",
 	},
 	Sounds: []*Sound{
-		createSound("nhol", 50, 250),
+		createSound("nhol", 50, 1000),
 	},
 }
 
@@ -220,7 +220,7 @@ var AZIA *SoundCollection = &SoundCollection{
 		"!renie",
 	},
 	Sounds: []*Sound{
-		createSound("azia", 50, 250),
+		createSound("azia", 50, 1000),
 	},
 }
 var FIGURAS *SoundCollection = &SoundCollection{
@@ -229,7 +229,7 @@ var FIGURAS *SoundCollection = &SoundCollection{
 		"!figuras",
 	},
 	Sounds: []*Sound{
-		createSound("figuras", 50, 250),
+		createSound("figuras", 50, 1000),
 	},
 }
 var OHJORGE *SoundCollection = &SoundCollection{
@@ -238,7 +238,17 @@ var OHJORGE *SoundCollection = &SoundCollection{
 		"!jorge",
 	},
 	Sounds: []*Sound{
-		createSound("jorge", 50, 250),
+		createSound("jorge", 50, 1000),
+	},
+}
+
+var DEJAVU *SoundCollection = &SoundCollection{
+	Prefix: "deja",
+	Commands: []string{
+		"!dejavu",
+	},
+	Sounds: []*Sound{
+		createSound("vu", 50, 1000),
 	},
 }
 
@@ -255,6 +265,7 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	AZIA,
 	FIGURAS,
 	OHJORGE,
+	DEJAVU,
 }
 
 // Create a Sound struct
