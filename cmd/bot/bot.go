@@ -14,12 +14,26 @@ import (
 	"strings"
 	"text/tabwriter"
 	"time"
+	"io/ioutil"
+	"encoding/json"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/bwmarrin/discordgo"
 	"github.com/dustin/go-humanize"
 	redis "gopkg.in/redis.v3"
 )
+
+type JsonSounds struct {
+	SoundColl []struct {
+		Prefix   string   `json:"Prefix"`
+		Commands []string `json:"Commands"`
+		Sounds   []struct {
+			Name      string `json:"Name"`
+			Weight    string `json:"Weight"`
+			PartDelay string `json:"PartDelay"`
+		} `json:"Sounds"`
+	} `json:"SoundCollection"`
+}
 
 var (
 	// discordgo session
@@ -77,6 +91,7 @@ type Sound struct {
 }
 
 // Array of all the sounds we have
+//NOT ANYMORE :D
 var AIRHORN *SoundCollection = &SoundCollection{
 	Prefix: "airhorn",
 	Commands: []string{
@@ -100,173 +115,7 @@ var AIRHORN *SoundCollection = &SoundCollection{
 	},
 }
 
-var KHALED *SoundCollection = &SoundCollection{
-	Prefix:    "another",
-	ChainWith: AIRHORN,
-	Commands: []string{
-		"!anotha",
-		"!anothaone",
-	},
-	Sounds: []*Sound{
-		createSound("one", 1, 250),
-		createSound("one_classic", 1, 250),
-		createSound("one_echo", 1, 250),
-	},
-}
-
-var CENA *SoundCollection = &SoundCollection{
-	Prefix: "jc",
-	Commands: []string{
-		"!johncena",
-		"!cena",
-	},
-	Sounds: []*Sound{
-		createSound("airhorn", 1, 250),
-		createSound("echo", 1, 250),
-		createSound("full", 1, 250),
-		createSound("jc", 1, 250),
-		createSound("nameis", 1, 250),
-		createSound("spam", 1, 250),
-	},
-}
-
-var ETHAN *SoundCollection = &SoundCollection{
-	Prefix: "ethan",
-	Commands: []string{
-		"!ethan",
-		"!eb",
-		"!ethanbradberry",
-		"!h3h3",
-	},
-	Sounds: []*Sound{
-		createSound("areyou_classic", 100, 250),
-		createSound("areyou_condensed", 100, 250),
-		createSound("areyou_crazy", 100, 250),
-		createSound("areyou_ethan", 100, 250),
-		createSound("classic", 100, 250),
-		createSound("echo", 100, 250),
-		createSound("high", 100, 250),
-		createSound("slowandlow", 100, 250),
-		createSound("cuts", 30, 250),
-		createSound("beat", 30, 250),
-		createSound("sodiepop", 1, 250),
-	},
-}
-
-var COW *SoundCollection = &SoundCollection{
-	Prefix: "cow",
-	Commands: []string{
-		"!stan",
-		"!stanislav",
-	},
-	Sounds: []*Sound{
-		createSound("herd", 10, 250),
-		createSound("moo", 10, 250),
-		createSound("x3", 1, 250),
-	},
-}
-
-var BIRTHDAY *SoundCollection = &SoundCollection{
-	Prefix: "birthday",
-	Commands: []string{
-		"!birthday",
-		"!bday",
-	},
-	Sounds: []*Sound{
-		createSound("horn", 50, 250),
-		createSound("horn3", 30, 250),
-		createSound("sadhorn", 25, 250),
-		createSound("weakhorn", 25, 250),
-	},
-}
-
-var WOW *SoundCollection = &SoundCollection{
-	Prefix: "wow",
-	Commands: []string{
-		"!wowthatscool",
-		"!wtc",
-	},
-	Sounds: []*Sound{
-		createSound("thatscool", 50, 1000),
-	},
-}
-
-var GATO *SoundCollection = &SoundCollection{
-	Prefix: "gato",
-	Commands: []string{
-		"!gato",
-		"!bizt1",
-	},
-	Sounds: []*Sound{
-		createSound("1", 50, 1000),
-		createSound("2", 50, 1000),
-		createSound("3", 50, 1000),
-	},
-}
-
-var ESPANHOL *SoundCollection = &SoundCollection{
-	Prefix: "espa",
-	Commands: []string{
-		"!espanhol",
-	},
-	Sounds: []*Sound{
-		createSound("nhol", 50, 1000),
-	},
-}
-
-var AZIA *SoundCollection = &SoundCollection{
-	Prefix: "tanta",
-	Commands: []string{
-		"!renie",
-	},
-	Sounds: []*Sound{
-		createSound("azia", 50, 1000),
-	},
-}
-var FIGURAS *SoundCollection = &SoundCollection{
-	Prefix: "melhores",
-	Commands: []string{
-		"!figuras",
-	},
-	Sounds: []*Sound{
-		createSound("figuras", 50, 1000),
-	},
-}
-var OHJORGE *SoundCollection = &SoundCollection{
-	Prefix: "oh",
-	Commands: []string{
-		"!jorge",
-	},
-	Sounds: []*Sound{
-		createSound("jorge", 50, 1000),
-	},
-}
-
-var DEJAVU *SoundCollection = &SoundCollection{
-	Prefix: "deja",
-	Commands: []string{
-		"!dejavu",
-	},
-	Sounds: []*Sound{
-		createSound("vu", 50, 1000),
-	},
-}
-
-var COLLECTIONS []*SoundCollection = []*SoundCollection{
-	AIRHORN,
-	KHALED,
-	CENA,
-	ETHAN,
-	COW,
-	BIRTHDAY,
-	WOW,
-	GATO,
-	ESPANHOL,
-	AZIA,
-	FIGURAS,
-	OHJORGE,
-	DEJAVU,
-}
+var COLLECTIONS []*SoundCollection 
 
 // Create a Sound struct
 func createSound(Name string, Weight int, PartDelay int) *Sound {
@@ -283,6 +132,46 @@ func (sc *SoundCollection) Load() {
 		sc.soundRange += sound.Weight
 		sound.Load(sc)
 	}
+}
+
+func loadSoundList() {
+	fmt.Println("loadSoundList")
+    file, e := ioutil.ReadFile("soundlist.json")
+	if e != nil {
+		fmt.Printf("File error: %v\n", e)
+		os.Exit(1)
+	}
+	//fmt.Printf("%s\n", string(file))
+	
+	res := JsonSounds{}
+	json.Unmarshal([]byte(file), &res)
+	//fmt.Println(res)
+	//fmt.Println(res.SoundColl[0])
+	//fmt.Println(len(res.SoundColl))
+
+	COLLECTIONS = make([]*SoundCollection, len(res.SoundColl))
+	
+	for i := 0; i < len(res.SoundColl); i++ {
+		s := res.SoundColl[i]
+		
+		soundzinhos := make([]*Sound, len(s.Sounds))
+		for j := 0; j < len(s.Sounds); j++ {
+			ss := s.Sounds[j]
+			_Weight, err := strconv.Atoi(ss.Weight)
+			_PD, err := strconv.Atoi(ss.PartDelay)
+			soundzinhos[j] = createSound(ss.Name, _Weight, _PD)
+			if err != nil {
+			}
+	
+			//fmt.Println(ss.Name)
+		}
+		COLLECTIONS [i] = &SoundCollection{
+		Prefix: s.Prefix,
+		Commands: s.Commands,
+		Sounds: soundzinhos,}
+		fmt.Println(COLLECTIONS [i].Prefix)
+	}
+	
 }
 
 func (s *SoundCollection) Random() *Sound {
@@ -308,7 +197,7 @@ func (s *SoundCollection) Random() *Sound {
 // eg: dca-rs --raw -i <input wav file> > <output file>
 func (s *Sound) Load(c *SoundCollection) error {
 	path := fmt.Sprintf("audio/%v_%v.dca", c.Prefix, s.Name)
-
+	fmt.Println(path)
 	file, err := os.Open(path)
 
 	if err != nil {
@@ -436,6 +325,8 @@ func enqueuePlay(user *discordgo.User, guild *discordgo.Guild, coll *SoundCollec
 	}
 }
 
+
+
 func trackSoundStats(play *Play) {
 	if rcli == nil {
 		return
@@ -524,7 +415,7 @@ func playSound(play *Play, vc *discordgo.VoiceConnection) (err error) {
 
 func onReady(s *discordgo.Session, event *discordgo.Ready) {
 	log.Info("Recieved READY payload")
-	s.UpdateStatus(0, "BiZT Meme Bot")
+	s.UpdateStatus(0, "airhornbot.com")
 }
 
 func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
@@ -558,6 +449,7 @@ func calculateAirhornsPerSecond(cid string) {
 }
 
 func displayBotStats(cid string) {
+	fmt.Println("STATUS")
 	stats := runtime.MemStats{}
 	runtime.ReadMemStats(&stats)
 
@@ -632,8 +524,8 @@ func utilGetMentioned(s *discordgo.Session, m *discordgo.MessageCreate) *discord
 
 func airhornBomb(cid string, guild *discordgo.Guild, user *discordgo.User, cs string) {
 	count, _ := strconv.Atoi(cs)
-	discord.ChannelMessageSend(cid, ":ok_hand:"+strings.Repeat(":trumpet:", count))
-
+	//discord.ChannelMessageSend(cid, ":ok_hand:"+strings.Repeat(":trumpet:", count))
+	fmt.Println("booommmmbb")
 	// Cap it at something
 	if count > 100 {
 		return
@@ -654,6 +546,7 @@ func airhornBomb(cid string, guild *discordgo.Guild, user *discordgo.User, cs st
 
 // Handles bot operator messages, should be refactored (lmao)
 func handleBotControlMessages(s *discordgo.Session, m *discordgo.MessageCreate, parts []string, g *discordgo.Guild) {
+	fmt.Println(parts[1])
 	if scontains(parts[1], "status") {
 		displayBotStats(m.ChannelID)
 	} else if scontains(parts[1], "stats") {
@@ -679,7 +572,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	msg := strings.Replace(m.ContentWithMentionsReplaced(), s.State.Ready.User.Username, "username", 1)
 	parts := strings.Split(strings.ToLower(msg), " ")
-
+	fmt.Println(msg)
 	channel, _ := discord.State.Channel(m.ChannelID)
 	if channel == nil {
 		log.WithFields(log.Fields{
@@ -700,16 +593,20 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	// If this is a mention, it should come from the owner (otherwise we don't care)
-	if len(m.Mentions) > 0 && m.Author.ID == OWNER && len(parts) > 0 {
+	// && m.Author.ID == OWNER 
+	if len(m.Mentions) > 0&& m.Author.ID == OWNER && len(parts) > 0 {
+		
 		mentioned := false
 		for _, mention := range m.Mentions {
 			mentioned = (mention.ID == s.State.Ready.User.ID)
+
 			if mentioned {
 				break
 			}
 		}
 
 		if mentioned {
+			fmt.Println("mention")
 			handleBotControlMessages(s, m, parts, guild)
 		}
 		return
@@ -724,6 +621,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			if len(parts) > 1 {
 				for _, s := range coll.Sounds {
 					if parts[1] == s.Name {
+						fmt.Println(s.Name)
 						sound = s
 					}
 				}
@@ -749,7 +647,8 @@ func main() {
 		err        error
 	)
 	flag.Parse()
-
+	loadSoundList()
+	fmt.Println(COLLECTIONS [0].Prefix)
 	if *Owner != "" {
 		OWNER = *Owner
 	}
