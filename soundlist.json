@@ -1,0 +1,276 @@
+{"SoundCollection":[
+{
+"Prefix":"airhorn",
+"Commands":["!airhorn"],
+"Sounds":[
+	{
+		"Name":"default",
+		"Weight":"103",
+		"PartDelay":"503"
+	},
+	{
+		"Name":"default",
+		"Weight":"103",
+		"PartDelay":"503"
+	}
+]
+},
+{
+"Prefix":"another",
+"Commands":["!anotha","!anothaone"],
+"Sounds":[
+	{
+		"Name":"one",
+		"Weight":"1",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"one_classic",
+		"Weight":"1",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"one_echo",
+		"Weight":"1",
+		"PartDelay":"250"
+	}
+]
+},
+{
+"Prefix":"jc",
+"Commands":["!jouhncena","!cena"],
+"Sounds":[
+	{
+		"Name":"airhorn",
+		"Weight":"1",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"cena",
+		"Weight":"5",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"echo",
+		"Weight":"1",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"jc",
+		"Weight":"1",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"nameis",
+		"Weight":"1",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"spam",
+		"Weight":"1",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"full",
+		"Weight":"1",
+		"PartDelay":"250"
+	}
+]
+},
+{
+"Prefix":"deja",
+"Commands":["!dejavu"],
+"Sounds":[
+	{
+		"Name":"vu",
+		"Weight":"50",
+		"PartDelay":"1000"
+	}
+]
+},
+{
+"Prefix":"oh",
+"Commands":["!jorge"],
+"Sounds":[
+	{
+		"Name":"jorge",
+		"Weight":"50",
+		"PartDelay":"1000"
+	}
+]
+},
+{
+"Prefix":"melhores",
+"Commands":["!figuras"],
+"Sounds":[
+	{
+		"Name":"figuras",
+		"Weight":"50",
+		"PartDelay":"1000"
+	}
+]
+},
+{
+"Prefix":"tanta",
+"Commands":["!renie"],
+"Sounds":[
+	{
+		"Name":"azia",
+		"Weight":"50",
+		"PartDelay":"1000"
+	}
+]
+},
+{
+"Prefix":"espa",
+"Commands":["!espanhol"],
+"Sounds":[
+	{
+		"Name":"nhol",
+		"Weight":"50",
+		"PartDelay":"1000"
+	}
+]
+},
+{
+"Prefix":"gato",
+"Commands":["!gato","!bizt1"],
+"Sounds":[
+	{
+		"Name":"1",
+		"Weight":"50",
+		"PartDelay":"1000"
+	},
+	{
+		"Name":"2",
+		"Weight":"50",
+		"PartDelay":"1000"
+	},
+	{
+		"Name":"3",
+		"Weight":"50",
+		"PartDelay":"1000"
+	}
+]
+},
+{
+"Prefix":"wow",
+"Commands":["!wowthatscool","!wtc"],
+"Sounds":[
+	{
+		"Name":"thatscool",
+		"Weight":"50",
+		"PartDelay":"1000"
+	}
+]
+},
+{
+"Prefix":"birthday",
+"Commands":["!birthday","!bday"],
+"Sounds":[
+	{
+		"Name":"horn",
+		"Weight":"50",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"horn3",
+		"Weight":"30",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"sadhorn",
+		"Weight":"25",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"weakhorn",
+		"Weight":"25",
+		"PartDelay":"250"
+	}
+]
+},
+{
+"Prefix":"cow",
+"Commands":["!stan","!stanislav"],
+"Sounds":[
+	{
+		"Name":"herd",
+		"Weight":"55",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"moo",
+		"Weight":"55",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"x3",
+		"Weight":"50",
+		"PartDelay":"250"
+	}
+]
+},
+{
+"Prefix":"ethan",
+"Commands":["!ethan","!eb","!ethanbradberry","!h3h3"],
+"Sounds":[
+	{
+		"Name":"areyou_classic",
+		"Weight":"50",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"areyou_condensed",
+		"Weight":"30",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"areyou_crazy",
+		"Weight":"25",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"areyou_ethan",
+		"Weight":"100",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"classic",
+		"Weight":"100",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"echo",
+		"Weight":"100",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"high",
+		"Weight":"100",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"slowandlow",
+		"Weight":"100",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"cuts",
+		"Weight":"30",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"beat",
+		"Weight":"30",
+		"PartDelay":"250"
+	},
+	{
+		"Name":"sodiepop",
+		"Weight":"10",
+		"PartDelay":"250"
+	}
+]
+}
+]
+}
